@@ -2,7 +2,7 @@ from fundamentals import Nand
 
 
 class Not:
-    def __init__(self, a, x=None):
+    def __init__(self, a, x=0):
         self.a = a
         self.x = x
         return(None)
@@ -14,7 +14,7 @@ class Not:
         return(self.x)
 
 class And:
-    def __init__(self, a, b, x=None):
+    def __init__(self, a, b, x=0):
         self.a = a
         self.b = b
         self.x = x
@@ -29,7 +29,7 @@ class And:
         return(self.x)
 
 class Or:
-    def __init__(self, a, b, x=None):
+    def __init__(self, a, b, x=0):
         self.a = a
         self.b = b
         self.x = x
@@ -46,7 +46,7 @@ class Or:
         return(self.x)
 
 class Xor:
-    def __init__(self, a, b, x=None):
+    def __init__(self, a, b, x=0):
         self.a = a
         self.b = b
         self.x = x
@@ -67,7 +67,7 @@ class Xor:
         return(self.x)
 
 class And3Way:
-    def __init__(self, a, b, c, x=None):
+    def __init__(self, a, b, c, x=0):
         self.a = a
         self.b = b
         self.c = c
@@ -83,7 +83,7 @@ class And3Way:
         return(self.x)
 
 class Mux:
-    def __init__(self, a, b, sel, x=None):
+    def __init__(self, a, b, sel, x=0):
         self.a = a
         self.b = b
         self.sel = sel
@@ -115,7 +115,7 @@ class Mux:
         return(self.x)
 
 class DMux:
-    def __init__(self, a, sel, x=None, y=None):
+    def __init__(self, a, sel, x=0, y=0):
         self.a = a
         self.sel = sel
         self.x = x
@@ -134,7 +134,7 @@ class DMux:
         return(self.x,self.y)
 
 class Not16:
-    def __init__(self, a16, x16=[None for i in range(16)]):
+    def __init__(self, a16, x16=[0 for i in range(16)]):
         self.a16 = a16
         self.x16 = x16
         return(None)
@@ -146,7 +146,7 @@ class Not16:
         return(self.x16)
 
 class And16:
-    def __init__(self, a16, b16, x16=[None for i in range(16)]):
+    def __init__(self, a16, b16, x16=[0 for i in range(16)]):
         self.a16 = a16
         self.b16 = b16
         self.x16 = x16

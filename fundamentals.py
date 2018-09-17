@@ -13,7 +13,7 @@ def nand(a,b):
     return(x)
 
 class Nand:
-    def __init__(self, a, b, x=None):
+    def __init__(self, a, b, x=0):
         self.a = a
         self.b = b
         self.x = x
