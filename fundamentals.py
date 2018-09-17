@@ -12,12 +12,18 @@ def nand(a,b):
         x = 1
     return(x)
 
-def dff(a_prev,a,t):
-    if t==1:
-        x=a
-    else:
-        x=a_prev
-    return(x)
+class Nand:
+    def __init__(self, a, b, x=None):
+        self.a = a
+        self.b = b
+        self.x = x
+
+    def update(self):
+        if (self.a and self.b) == 1:
+            self.x = 0
+        else:
+            self.x = 1
+        return(self.x)
 
 def master_clock(clk):
     if clk == 0:
