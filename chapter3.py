@@ -189,7 +189,6 @@ class RAM8:
     def update(self):
         dmux8 = ch1.DMux8Way(self.load,self.address3)
         dmux8.update()
-        print("%d %d %d %d %d %d %d %d"%(dmux8.x0,dmux8.x1,dmux8.x2,dmux8.x3,dmux8.x4,dmux8.x5,dmux8.x6,dmux8.x7))
         reg_0 = self.registers[0]
         reg_0.d16 = self.d16
         reg_0.load = dmux8.x0
@@ -253,24 +252,412 @@ class RAM8:
         return(self.Q16)
 
 
-import random
+class RAM64:
+    def __init__(self, d16=[0 for i in range(16)], 
+                 address6=[0 for i in range(6)],
+                 load = 0, clk = 0, Q16=[0 for i in range(16)]):
+        self.d16 = d16
+        self.address6 = address6
+        self.load = load
+        self.clk = clk
+        self.Q16 = Q16
+        self.ram8s = [RAM8() for i in range(8)]
+        return(None)
 
-ram8 = RAM8()
-clk = 0
-for i in range(100):
-    ram8.d16 = [random.randint(0,1) for i in range(16)]
-    ram8.address3 = [random.randint(0,1) for i in range(3)]
-    ram8.load = random.randint(0,1)
-    ram8.clk = clk
-    ram8.update()
-    print("load=%d, clk=%d"%(ram8.load,ram8.clk))
-    print("address=%s, d16=%s, Q16=%s"%(ram8.address3,ram8.d16,ram8.Q16))
+    def update(self):
+        dmux8 = ch1.DMux8Way(self.load,self.address6[:3])
+        dmux8.update()
+        ram8_0 = self.ram8s[0]
+        ram8_0.d16 = self.d16
+        ram8_0.load = dmux8.x0
+        ram8_0.clk = self.clk
+        ram8_0.address3 = self.address6[3:]
+        if self.address6[:3]==[0,0,0]:
+            ram8_0.update()
+        self.ram8s[0] = ram8_0
+        ram8_1 = self.ram8s[1]
+        ram8_1.d16 = self.d16
+        ram8_1.load = dmux8.x1
+        ram8_1.clk = self.clk
+        ram8_1.address3 = self.address6[3:]
+        if self.address6[:3]==[0,0,1]:
+            ram8_1.update()
+        self.ram8s[1] = ram8_1
+        ram8_2 = self.ram8s[2]
+        ram8_2.d16 = self.d16
+        ram8_2.load = dmux8.x2
+        ram8_2.clk = self.clk
+        ram8_2.address3 = self.address6[3:]
+        if self.address6[:3]==[0,1,0]:
+            ram8_2.update()
+        self.ram8s[2] = ram8_2
+        ram8_3 = self.ram8s[3]
+        ram8_3.d16 = self.d16
+        ram8_3.load = dmux8.x3
+        ram8_3.clk = self.clk
+        ram8_3.address3 = self.address6[3:]
+        if self.address6[:3]==[0,1,1]:
+            ram8_3.update()
+        self.ram8s[3] = ram8_3
+        ram8_4 = self.ram8s[4]
+        ram8_4.d16 = self.d16
+        ram8_4.load = dmux8.x4
+        ram8_4.clk = self.clk
+        ram8_4.address3 = self.address6[3:]
+        if self.address6[:3]==[1,0,0]:
+            ram8_4.update()
+        self.ram8s[4] = ram8_4
+        ram8_5 = self.ram8s[5]
+        ram8_5.d16 = self.d16
+        ram8_5.load = dmux8.x5
+        ram8_5.clk = self.clk
+        ram8_5.address3 = self.address6[3:]
+        if self.address6[:3]==[1,0,1]:
+            ram8_5.update()
+        self.ram8s[5] = ram8_5
+        ram8_6 = self.ram8s[6]
+        ram8_6.d16 = self.d16
+        ram8_6.load = dmux8.x6
+        ram8_6.clk = self.clk
+        ram8_6.address3 = self.address6[3:]
+        if self.address6[:3]==[1,1,0]:
+            ram8_6.update()
+        self.ram8s[6] = ram8_6 
+        ram8_7 = self.ram8s[7] 
+        ram8_7.d16 = self.d16 
+        ram8_7.load = dmux8.x7 
+        ram8_7.clk = self.clk 
+        ram8_7.address3 = self.address6[3:] 
+        if self.address6[:3]==[1,1,1]:
+            ram8_7.update()
+        self.ram8s[7] = ram8_6
+        mux816 = ch1.Mux8Way16(ram8_0.Q16,ram8_1.Q16,ram8_2.Q16,ram8_3.Q16,
+                               ram8_4.Q16,ram8_5.Q16,ram8_6.Q16,ram8_7.Q16,
+                               self.address6[:3])
+        mux816.update() 
+        self.Q16 = mux816.x16
+        return(self.Q16)
 
-    if clk == 0:
-        clk = 1
+
+class RAM512:
+    def __init__(self, d16=[0 for i in range(16)],
+            address9=[0 for i in range(9)],
+            load=0, clk=0, Q16=[0 for i in range(16)]):
+        self.d16 = d16
+        self.address9 = address9 
+        self.load = load
+        self.clk = clk
+        self.Q16 = Q16
+        self.ram64s = [RAM64() for i in range(8)]
+        return(None)
+
+    def update(self):
+        dmux8 = ch1.DMux8Way(self.load, self.address9[:3])
+        dmux8.update()
+        ram64_0 = self.ram64s[0]
+        ram64_0.d16 = self.d16
+        ram64_0.load = self.load
+        ram64_0.clk = self.clk
+        ram64_0.address6 = self.address9[3:]
+        if self.address9[:3]==[0,0,0]:
+            ram64_0.update()
+        self.ram64s[0] = ram64_0
+        ram64_1 = self.ram64s[1]
+        ram64_1.d16 = self.d16 
+        ram64_1.load = self.load 
+        ram64_1.clk = self.clk
+        ram64_1.address6 = self.address9[3:]
+        if self.address9[:3]==[0,0,1]:
+            ram64_1.update()
+        self.ram64s[1] = ram64_1 
+        ram64_2 = self.ram64s[2]
+        ram64_2.d16 = self.d16 
+        ram64_2.load = self.load 
+        ram64_2.clk = self.clk 
+        ram64_2.address6 = self.address9[3:]
+        if self.address9[:3]==[0,1,0]:
+            ram64_2.update()
+        self.ram64s[2] = ram64_2
+        ram64_3 = self.ram64s[3]
+        ram64_3.d16 = self.d16
+        ram64_3.load = self.load
+        ram64_3.clk = self.clk
+        ram64_3.address6 = self.address9[3:]
+        if self.address9[:3]==[0,1,1]:
+            ram64_3.update()
+        self.ram64s[3] = ram64_3
+        ram64_4 = self.ram64s[4]
+        ram64_4.d16 = self.d16
+        ram64_4.load = self.load
+        ram64_4.clk = self.clk
+        ram64_4.address6 = self.address9[3:]
+        if self.address9[:3]==[1,0,0]:
+            ram64_4.update()
+        self.ram64s[4] = ram64_4
+        ram64_5 = self.ram64s[5]
+        ram64_5.d16 = self.d16
+        ram64_5.load = self.load 
+        ram64_5.clk = self.clk 
+        ram64_5.address6 = self.address9[3:]
+        if self.address9[:3]==[1,0,1]:
+            ram64_5.update()
+        self.ram64s[5] = ram64_5 
+        ram64_6 = self.ram64s[6]
+        ram64_6.d16 = self.d16 
+        ram64_6.load = self.load 
+        ram64_6.clk = self.clk 
+        ram64_6.address6 = self.address9[3:] 
+        if self.address9[:3]==[1,1,0]:
+            ram64_6.update()
+        self.ram64s[6] = ram64_6 
+        ram64_7 = self.ram64s[7]
+        ram64_7.d16 = self.d16 
+        ram64_7.load = self.load 
+        ram64_7.clk = self.clk 
+        ram64_7.address6 = self.address9[3:]
+        if self.address9[:3]==[1,1,1]:
+            ram64_7.update()
+        self.ram64s[7] = ram64_7
+
+        mux816 = ch1.Mux8Way16(ram64_0.Q16,ram64_1.Q16,ram64_2.Q16,ram64_3.Q16,
+                               ram64_4.Q16,ram64_5.Q16,ram64_6.Q16,ram64_7.Q16,
+                               self.address9[:3])
+        mux816.update()
+        self.Q16 = mux816.x16
+        return(self.Q16)
+
+
+class RAM4K:
+    def __init__(self, d16 = [0 for i in range(16)],
+            address12 = [0 for i in range(12)],
+            load = 0, clk = 0, Q16 = [0 for i in range(16)]):
+        self.d16 = d16 
+        self.address12 = address12
+        self.load = load 
+        self.clk = clk
+        self.Q16 = Q16 
+        self.ram512s = [RAM512() for i in range(8)]
+        return(None)
+
+    def update(self):
+        ram512_0 = self.ram512s[0]
+        ram512_0.d16 = self.d16 
+        ram512_0.load = self.load 
+        ram512_0.clk = self.clk 
+        ram512_0.address9 = self.address12[3:]
+        if self.address12[:3]==[0,0,0]:
+            ram512_0.update() 
+        self.ram512s[0] = ram512_0
+        ram512_1 = self.ram512s[1]
+        ram512_1.d16 = self.d16 
+        ram512_1.load = self.load 
+        ram512_1.clk = self.clk 
+        ram512_1.address9 = self.address12[3:]
+        if self.address12[:3]==[0,0,1]:
+            ram512_1.update()
+        self.ram512s[1] = ram512_1 
+        ram512_2 = self.ram512s[2] 
+        ram512_2.d16 = self.d16 
+        ram512_2.load = self.load 
+        ram512_2.clk = self.clk 
+        ram512_2.address9 = self.address12[3:]
+        if self.address12[:3]==[0,1,0]:
+            ram512_2.update() 
+        self.ram512s[2] = ram512_2 
+        ram512_3 = self.ram512s[3] 
+        ram512_3.d16 = self.d16 
+        ram512_3.load = self.load 
+        ram512_3.clk = self.load 
+        ram512_3.address9 = self.address12[3:] 
+        if self.address12[:3]==[0,1,1]:
+            ram512_3.update()
+        self.ram512s[3] = ram512_3 
+        ram512_4 = self.ram512s[4]
+        ram512_4.d16 = self.d16 
+        ram512_4.load = self.load 
+        ram512_4.clk = self.clk 
+        ram512_4.address9 = self.address12[3:]
+        if self.address12[:3]==[1,0,0]:
+            ram512_4.update()
+        self.ram512s[4] = ram512_4
+        ram512_5 = self.ram512s[5]
+        ram512_5.d16 = self.d16 
+        ram512_5.load = self.load
+        ram512_5.clk = self.clk 
+        ram512_5.address9 = self.address12[3:]
+        if self.address12[:3]==[1,0,1]:
+            ram512_5.update()
+        self.ram512s[5] = ram512_5 
+        ram512_6 = self.ram512s[6] 
+        ram512_6.d16 = self.d16 
+        ram512_6.load = self.load 
+        ram512_6.clk = self.clk 
+        ram512_6.address9 = self.address12[3:]
+        if self.address12[:3]==[1,1,0]:
+            ram512_6.update() 
+        self.ram512s[6] = ram512_6 
+        ram512_7 = self.ram512s[7] 
+        ram512_7.d16 = self.d16 
+        ram512_7.load = self.load 
+        ram512_7.clk = self.clk 
+        ram512_7.address9 = self.address12[3:]
+        if self.address12[:3]==[1,1,1]:
+            ram512_7.update()
+        self.ram512s[7] = ram512_7
+
+        mux816 = ch1.Mux8Way16(ram512_0.Q16,ram512_1.Q16,ram512_2.Q16,ram512_3.Q16,
+                               ram512_4.Q16,ram512_5.Q16,ram512_6.Q16,ram512_7.Q16,
+                               self.address12[:3])
+        mux816.update()
+        self.Q16 = mux816.x16
+        return(self.Q16)
+
+class RAM16K:
+    def __init__(self, d16 = [0 for i in range(16)],
+            address14 = [0 for i in range(14)],
+            load = 0, clk = 0, Q16 = [0 for i in range(16)]):
+        self.d16 = d16 
+        self.address14 = address14 
+        self.load = load 
+        self.clk = clk 
+        self.Q16 = Q16 
+        self.ram4ks = [RAM4K() for i in range(4)]
+        return(None)
+
+    def update(self):
+        ram4k_0 = self.ram4ks[0]
+        ram4k_0.d16 = self.d16 
+        ram4k_0.load = self.load 
+        ram4k_0.clk = self.clk 
+        ram4k_0.address12 = self.address14[2:]
+        if self.address14[:2] == [0,0]:
+            ram4k_0.update()
+        self.ram4ks[0] = ram4k_0
+        ram4k_1 = self.ram4ks[1]
+        ram4k_1.d16 = self.d16 
+        ram4k_1.load = self.load 
+        ram4k_1.clk = self.clk 
+        ram4k_1.address12 = self.address14[2:]
+        if self.address14[:2] == [0,1]:
+            ram4k_1.update() 
+        self.ram4ks[1] = ram4k_1
+        ram4k_2 = self.ram4ks[2]
+        ram4k_2.d16 = self.d16 
+        ram4k_2.load = self.load
+        ram4k_2.clk = self.clk 
+        ram4k_2.address12 = self.address14[2:]
+        if self.address14[:2]==[1,0]:
+            ram4k_2.update()
+        self.ram4ks[2] = ram4k_2 
+        ram4k_3 = self.ram4ks[3]
+        ram4k_3.d16 = self.d16 
+        ram4k_3.load = self.load
+        ram4k_3.clk = self.clk 
+        ram4k_3.address12 = self.address14[2:]
+        if self.address14[:2]==[1,1]:
+            ram4k_3.update()
+        self.ram4ks[3] = ram4k_3
+
+        mux416 = ch1.Mux4Way16(ram4k_0.Q16,ram4k_1.Q16,ram4k_2.Q16,ram4k_3.Q16,self.address14[:2])
+        mux416.update()
+        self.Q16 = mux416.x16
+        return(self.Q16)
+
+
+
+
+def read_write():
+    user_input = input("read or write?\n > ")
+    return(user_input)
+
+def get_address():
+    user_input = input("enter the address (ex 01011010001010)\n > ")
+    address = []
+    for i in user_input:
+        address.append(int(i))
+    return(address)
+
+def get_data():
+    user_input = input("enter data (ex 0001011001011101)\n > ")
+    data = []
+    for i in user_input:
+        data.append(int(i))
+    return(data)
+
+def next_state_logic(user_input, current_state):
+    if current_state == 0:
+        if user_input == "read":
+            next_state = 1
+        elif user_input == "write":
+            next_state = 2 
+        else:
+            print("please enter read or write")
+            next_state = 0 
+    elif current_state == 1:
+        next_state = 0
+    elif current_state == 2:
+        next_state = 0 
     else:
-        clk = 0
+        print('invalid state, starting over')
+        next_state = 0
+    return(next_state)
 
+ram16k = RAM16K()
+ram16k.clk = 1
+ram16k.load = 1
+ram16k.d16 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+ram16k.address14 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Inc1 = ch2.Inc16(ram16k.d16)
+for i in range(16384):
+    ram16k.update()
+    Inc1.a16 = ram16k.d16
+    Inc1.update()
+    ram16k.d16 = Inc1.sum16
+    ram16k.address14 = ram16k.d16[2:]
+    ram16k.clk = 0
+    ram16k.update()
+    ram16k.clk = 1
+    ram16k.update()
+    print("Q16[%d] = %s"%(i,str(ram16k.Q16)))
+
+
+def output_logic(current_state):
+    if current_state == 0:
+        user_input = read_write()
+    elif current_state == 1:
+        address = get_address()
+        ram16k.address14 = address
+        ram16k.clk = 1
+        ram16k.load = 0
+        ram16k.update()
+        print(ram16k.Q16)
+        user_input = ''
+    elif current_state == 2:
+        address = get_address()
+        data = get_data()
+        ram16k.address14 = address
+        ram16k.d16 = data 
+        ram16k.clk = 1 
+        ram16k.load = 1
+        ram16k.update()
+        user_input = ''
+    else:
+        print("uh oh")
+        user_input = ''
+    return(user_input)
+
+def loop():
+    current_state = 0
+    while True:
+        user_input = output_logic(current_state)
+        current_state = next_state_logic(user_input,current_state)
+        ram16k.clk = 1 
+        ram16k.update()
+        ram16k.clk = 0
+        ram16k.update()
+
+loop()
+        
 
 
 
