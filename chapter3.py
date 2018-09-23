@@ -564,99 +564,41 @@ class RAM16K:
         return(self.Q16)
 
 
+class PC:
+    def __init__(self, d16 = [0 for i in range(16)],
+            load = 0, reset = 0, inc = 0, clk = 0,
+            Q16 = [0 for i in range(16)]):
+        self.d16 = d16 
+        self.load = load
+        self.reset = reset
+        self.inc = inc
+        self.clk = clk 
+        self.Q16 = Q16
+        self.register = Register16()
+        self.zeros = [0 for i in range(16)]
+        return(None)
+
+    def update(self):
+        inc1 = ch2.Inc16(self.Q16)
+        inc1.update()
+        mux1 = ch1.Mux16(self.d16,inc1.sum16,[self.inc for i in range(16)])
+        mux1.update()
+        mux2 = ch1.Mux16(mux1.x16,self.zeros,[self.reset for i in range(16)])
+        mux2.update()
+        or1 = ch1.Or(self.inc, self.load)
+        or1.update()
+        or2 = ch1.Or(or1.x,self.reset)
+        or2.update()
+        self.register.d16 = mux2.x16 
+        self.register.load = or2.x
+        self.register.clk = self.clk
+        self.register.update()
+        self.Q16 = self.register.Q16
+        return(self.Q16)
 
 
-def read_write():
-    user_input = input("read or write?\n > ")
-    return(user_input)
-
-def get_address():
-    user_input = input("enter the address (ex 01011010001010)\n > ")
-    address = []
-    for i in user_input:
-        address.append(int(i))
-    return(address)
-
-def get_data():
-    user_input = input("enter data (ex 0001011001011101)\n > ")
-    data = []
-    for i in user_input:
-        data.append(int(i))
-    return(data)
-
-def next_state_logic(user_input, current_state):
-    if current_state == 0:
-        if user_input == "read":
-            next_state = 1
-        elif user_input == "write":
-            next_state = 2 
-        else:
-            print("please enter read or write")
-            next_state = 0 
-    elif current_state == 1:
-        next_state = 0
-    elif current_state == 2:
-        next_state = 0 
-    else:
-        print('invalid state, starting over')
-        next_state = 0
-    return(next_state)
-
-ram16k = RAM16K()
-ram16k.clk = 1
-ram16k.load = 1
-ram16k.d16 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-ram16k.address14 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-Inc1 = ch2.Inc16(ram16k.d16)
-for i in range(16384):
-    ram16k.update()
-    Inc1.a16 = ram16k.d16
-    Inc1.update()
-    ram16k.d16 = Inc1.sum16
-    ram16k.address14 = ram16k.d16[2:]
-    ram16k.clk = 0
-    ram16k.update()
-    ram16k.clk = 1
-    ram16k.update()
-    print("Q16[%d] = %s"%(i,str(ram16k.Q16)))
 
 
-def output_logic(current_state):
-    if current_state == 0:
-        user_input = read_write()
-    elif current_state == 1:
-        address = get_address()
-        ram16k.address14 = address
-        ram16k.clk = 1
-        ram16k.load = 0
-        ram16k.update()
-        print(ram16k.Q16)
-        user_input = ''
-    elif current_state == 2:
-        address = get_address()
-        data = get_data()
-        ram16k.address14 = address
-        ram16k.d16 = data 
-        ram16k.clk = 1 
-        ram16k.load = 1
-        ram16k.update()
-        user_input = ''
-    else:
-        print("uh oh")
-        user_input = ''
-    return(user_input)
-
-def loop():
-    current_state = 0
-    while True:
-        user_input = output_logic(current_state)
-        current_state = next_state_logic(user_input,current_state)
-        ram16k.clk = 1 
-        ram16k.update()
-        ram16k.clk = 0
-        ram16k.update()
-
-loop()
         
 
 
