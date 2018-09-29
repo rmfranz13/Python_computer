@@ -158,4 +158,4 @@ if __name__ == "__main__":
     clear.grid(row=5, column='1') 
   
     # start the GUI 
-    gui.mainloop() 
+    gui.mainloop 
