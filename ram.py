@@ -1,6 +1,6 @@
 from fundamentals import Nand
-import chapter1 as ch1
-import chapter2 as ch2
+import logic_gates as ch1
+import alu as ch2
 
 class NandLatch:
     def __init__(self, a=0, b=0, x=0, y=0):

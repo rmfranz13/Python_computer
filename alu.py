@@ -1,4 +1,4 @@
-import chapter1 as ch1
+import logic_gates as ch1
 	
 class HalfAdder:
 	def __init__(self, a, b, carry=0, Sum=0):
