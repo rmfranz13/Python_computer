@@ -7,12 +7,17 @@ hold the ASCII codes of the buttons being pushed.
 
 When a button is pushed, it invokes the 'press' method which uploads to a 
 16-bit register the ASCII code of the value that was pushed.
+
+This is where a slight deviation from 'nothing but Nand' (discussed in fundamentals)
+is necessary to make the actual keyboard and screen guis. This is hopefully not
+too much of a leap as one could easily imagine a real-world circuit that does
+exactly the same thing that this program does. Your keyboard and screen in
+real-world are not composed of Nand gates but fancy plastic buttons and LEDs.
+So some extra stuff (besides Nand) is needed to describe that here.
 '''
 
 import tkinter as tk
 import ram as ch3
-
-#KeyBoardMM = ch3.Register16()
 
 class KeyBoard:
 
