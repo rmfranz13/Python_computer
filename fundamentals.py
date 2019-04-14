@@ -1,5 +1,5 @@
 """
-Fundamental functions for building a computer... just Nand, and later, a clock
+Fundamental functions for building a computer... just Nand gate object.
 """
 class Nand:
     def __init__(self, a, b, x=0):
