@@ -1,6 +1,5 @@
 
 '''
-Ryan Franz
 4/2/2019
 
 This file implements the keyboard as well as instantiating a 16-bit register to
