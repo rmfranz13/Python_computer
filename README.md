@@ -13,3 +13,5 @@ Secondary goals are optimizing the system after it is built (still sticking to P
 \begin{equation}
 \Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
 \end{equation}
+
+h<sub>&theta;</sub>(x) = &theta;<sub>o</sub> x + &theta;<sub>1</sub>x
