@@ -6,3 +6,8 @@ While the book itself does not use Python, my goal is to re-build the architectu
 Everything is to be visible and accessible to an individual whose only tool is Python, so there is no confusion or software troubles that can hinder a complete understanding of how a simple (yet not completely useless... hopefully) virtual computer works. From fundamental [logic gates](https://en.wikipedia.org/wiki/Logic_gate), to the [assembler](https://en.wikipedia.org/wiki/Assembly_language), to the [compiler](https://en.wikipedia.org/wiki/Compiler), to the [operating system](https://en.wikipedia.org/wiki/Operating_system), to high-level programming and games. It should make concrete all those low-level ideas that everyone pretends to understand. This virtual computer is not unlike a [cannulated cow](https://en.wikipedia.org/wiki/Cannulated_cow) of computers. 
 
 Secondary goals are optimizing the system after it is built (still sticking to Python built-ins) and possibly developing more sophisticated computer systems once the underlying architecture is fully understood. Could see this eventually turning into a crappy but easy-for-me-to-use-because-I-built-it virtual machine. Sky's the limit really. Let's see what Python can do!
+
+
+## Completely unrelated: testing markdown equations:
+
+\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
