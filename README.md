@@ -10,5 +10,6 @@ Secondary goals are optimizing the system after it is built (still sticking to P
 
 ## Completely unrelated: testing markdown equations:
 
-
-$$\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
+\begin{equation}
+\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+\end{equation}
