@@ -5,7 +5,7 @@
 This file implements the keyboard as well as instantiating a 16-bit register to
 hold the ASCII codes of the buttons being pushed.
 
-When a button is pushed, it invokes the 'press' method which uploads to a 
+When a button is pushed, it invokes the 'press' method which uploads to a
 16-bit register the ASCII code of the value that was pushed.
 
 This is where a slight deviation from 'nothing but Nand' (discussed in fundamentals)
@@ -19,13 +19,14 @@ So some extra stuff (besides Nand) is needed to describe that here.
 import tkinter as tk
 import ram as ch3
 
+
 class KeyBoard:
 
     def __init__(self):
         self.KeyBoardMM = ch3.Register16()
-        
+
         self.gui = tk.Tk()
-        
+
         self.equation = tk.StringVar()
         self.expression_field = tk.Entry(self.gui, textvariable=self.equation)
 
@@ -33,52 +34,52 @@ class KeyBoard:
         self.gui.title("Keyboard")
         self.gui.geometry("1024x512")
 
-        # grid method is used for placing 
-        # the widgets at respective positions 
-        # in table like structure . 
-        self.expression_field.grid(columnspan=13, ipadx=70) 
-        self.equation.set('enter your expression') 
-   
-        self.btn1 = tk.Button(self.gui, text=' 1 ', fg='black', bg='white', command=lambda: self.press("0000000000110001"), height=2, width=7) 
-        self.btn1.grid(row=2, column=0) 
-  
-        self.btn2 = tk.Button(self.gui, text=' 2 ', fg='black', bg='white', command=lambda: self.press("0000000000110010"), height=2, width=7) 
-        self.btn2.grid(row=2, column=1) 
-  
-        self.btn3 = tk.Button(self.gui, text=' 3 ', fg='black', bg='white', command=lambda: self.press("0000000000110011"), height=2, width=7) 
-        self.btn3.grid(row=2, column=2) 
-  
-        self.btn4 = tk.Button(self.gui, text=' 4 ', fg='black', bg='white', command=lambda: self.press("0000000000110100"), height=2, width=7) 
-        self.btn4.grid(row=2, column=3) 
-  
-        self.btn5 = tk.Button(self.gui, text=' 5 ', fg='black', bg='white', command=lambda: self.press("0000000000110101"), height=2, width=7) 
-        self.btn5.grid(row=2, column=4) 
-  
-        self.btn6 = tk.Button(self.gui, text=' 6 ', fg='black', bg='white', command=lambda: self.press("0000000000110110"), height=2, width=7) 
-        self.btn6.grid(row=2, column=5) 
-  
-        self.btn7 = tk.Button(self.gui, text=' 7 ', fg='black', bg='white', command=lambda: self.press("0000000000110111"), height=2, width=7) 
-        self.btn7.grid(row=2, column=6) 
-  
-        self.btn8 = tk.Button(self.gui, text=' 8 ', fg='black', bg='white', command=lambda: self.press("0000000000111000"), height=2, width=7) 
-        self.btn8.grid(row=2, column=7) 
-  
-        self.btn9 = tk.Button(self.gui, text=' 9 ', fg='black', bg='white', command=lambda: self.press("0000000000111100"), height=2, width=7) 
-        self.btn9.grid(row=2, column=8) 
-  
-        self.btn0 = tk.Button(self.gui, text=' 0 ', fg='black', bg='white', command=lambda: self.press("0000000000110000"), height=2, width=7) 
-        self.btn0.grid(row=2, column=9) 
+        # grid method is used for placing
+        # the widgets at respective positions
+        # in table like structure .
+        self.expression_field.grid(columnspan=13, ipadx=70)
+        self.equation.set('enter your expression')
+
+        self.btn1 = tk.Button(self.gui, text=' 1 ', fg='black', bg='white', command=lambda: self.press("0000000000110001"), height=2, width=7)
+        self.btn1.grid(row=2, column=0)
+
+        self.btn2 = tk.Button(self.gui, text=' 2 ', fg='black', bg='white', command=lambda: self.press("0000000000110010"), height=2, width=7)
+        self.btn2.grid(row=2, column=1)
+
+        self.btn3 = tk.Button(self.gui, text=' 3 ', fg='black', bg='white', command=lambda: self.press("0000000000110011"), height=2, width=7)
+        self.btn3.grid(row=2, column=2)
+
+        self.btn4 = tk.Button(self.gui, text=' 4 ', fg='black', bg='white', command=lambda: self.press("0000000000110100"), height=2, width=7)
+        self.btn4.grid(row=2, column=3)
+
+        self.btn5 = tk.Button(self.gui, text=' 5 ', fg='black', bg='white', command=lambda: self.press("0000000000110101"), height=2, width=7)
+        self.btn5.grid(row=2, column=4)
+
+        self.btn6 = tk.Button(self.gui, text=' 6 ', fg='black', bg='white', command=lambda: self.press("0000000000110110"), height=2, width=7)
+        self.btn6.grid(row=2, column=5)
+
+        self.btn7 = tk.Button(self.gui, text=' 7 ', fg='black', bg='white', command=lambda: self.press("0000000000110111"), height=2, width=7)
+        self.btn7.grid(row=2, column=6)
+
+        self.btn8 = tk.Button(self.gui, text=' 8 ', fg='black', bg='white', command=lambda: self.press("0000000000111000"), height=2, width=7)
+        self.btn8.grid(row=2, column=7)
+
+        self.btn9 = tk.Button(self.gui, text=' 9 ', fg='black', bg='white', command=lambda: self.press("0000000000111100"), height=2, width=7)
+        self.btn9.grid(row=2, column=8)
+
+        self.btn0 = tk.Button(self.gui, text=' 0 ', fg='black', bg='white', command=lambda: self.press("0000000000110000"), height=2, width=7)
+        self.btn0.grid(row=2, column=9)
 
         self.btnPlus = tk.Button(self.gui, text=' + ', fg='black', bg='white', command=lambda: self.press("0000000000101011"), height=2, width=7)
         self.btnPlus.grid(row=2, column=10)
 
-        self.btnMinus = tk.Button(self.gui, text=' - ', fg='black', bg='white', command=lambda: self.press("0000000000101101"), height=2, width=7) 
+        self.btnMinus = tk.Button(self.gui, text=' - ', fg='black', bg='white', command=lambda: self.press("0000000000101101"), height=2, width=7)
         self.btnMinus.grid(row=2, column=11)
 
         self.btnMultiply = tk.Button(self.gui, text=' * ', fg='black', bg='white', command=lambda: self.press("0000000000101010"), height=2, width=7)
         self.btnMultiply.grid(row=3, column=10)
 
-        self.btnDivide = tk.Button(self.gui, text=' / ', fg='black', bg='white', command=lambda: self.press("0000000000101111"), height=2,width=7)
+        self.btnDivide = tk.Button(self.gui, text=' / ', fg='black', bg='white', command=lambda: self.press("0000000000101111"), height=2, width=7)
         self.btnDivide.grid(row=3, column=11)
 
         self.btnEquals = tk.Button(self.gui, text=' = ', fg='black', bg='white', command=lambda: self.press("0000000000111101"), height=2, width=7)
@@ -258,32 +259,26 @@ class KeyBoard:
         self.btnPct = tk.Button(self.gui, text=' % ', fg='black', bg='white', command=lambda: self.press("0000000000100101"), height=2, width=7)
         self.btnPct.grid(row=7, column=7)
 
-        self.btnAmp = tk.Button(self.gui, text = ' & ', fg='black', bg='white', command=lambda: self.press("0000000000100110"), height=2, width=7)
+        self.btnAmp = tk.Button(self.gui, text=' & ', fg='black', bg='white', command=lambda: self.press("0000000000100110"), height=2, width=7)
         self.btnAmp.grid(row=7, column=8)
 
-        self.btnSglQt = tk.Button(self.gui, text = " ' ", fg='black', bg='white', command=lambda: self.press("0000000000100111"), height=2, width=7)
+        self.btnSglQt = tk.Button(self.gui, text=" ' ", fg='black', bg='white', command=lambda: self.press("0000000000100111"), height=2, width=7)
         self.btnSglQt.grid(row=7, column=9)
-
-        
-
 
     def press(self, str_num):
         self.KeyBoardMM.load = 1
         self.KeyBoardMM.d16 = [int(i) for i in str_num]
         self.KeyBoardMM.clk = 1
         self.KeyBoardMM.update()
-        self.KeyBoardMM.clk = 0 
+        self.KeyBoardMM.clk = 0
         self.KeyBoardMM.update()
         self.KeyBoardMM.load = 0
         self.expression = str(self.KeyBoardMM.Q16)
         self.equation.set(self.expression)
 
-    
-
     def run(self):
         self.gui.mainloop()
-  
+
+
 KeyboardyTheKeyboard = KeyBoard()
 KeyboardyTheKeyboard.run()
-    
-

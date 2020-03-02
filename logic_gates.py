@@ -1,28 +1,42 @@
-from fundamentals import Nand
+import fundamentals
 
 
 class Not:
-    def __init__(self, a, x=0):
-        self.a = a
-        self.x = x
+    def __init__(self, a=0, x=0):
+        # Initialize member gates:
+        self.nand = fundamentals.Nand(a=a, b=a, x=x)
+
+        # Initialize pins for this chip:
+        self.a = fundamentals.Pin(a)
+        self.x = fundamentals.Pin(x)
+
         return(None)
 
     def update(self):
-        gate1 = Nand(self.a, self.a)
-        gate1.update()
-        self.x = gate1.x
-        return(self.x)
+        # update input pins:
+        self.nand.a = self.a
+        self.nand.b = self.a
+
+        # call Nand update:
+        self.nand.update()
+
+        # update output pins:
+        self.x = self.nand.x
+        return(None)
 
 
 class And:
     def __init__(self, a, b, x=0):
+        # Initialize member gates:
+        self.nand = fundamentals.Nand()
+
         self.a = a
         self.b = b
         self.x = x
         return(None)
 
     def update(self):
-        gate1 = Nand(self.a, self.b)
+        gate1 = fundamentals.Nand(self.a, self.b)
         gate1.update()
         gate2 = Not(gate1.x)
         gate2.update()
@@ -42,7 +56,7 @@ class Or:
         gate1.update()
         gate2 = Not(self.b)
         gate2.update()
-        gate3 = Nand(gate1.x, gate2.x)
+        gate3 = fundamentals.Nand(gate1.x, gate2.x)
         gate3.update()
         self.x = gate3.x
         return(self.x)
@@ -338,11 +352,11 @@ class DMux8Way:
         return(None)
 
     def update(self):
-        dmux_1 = DMux(self.a,self.sel3[0])
+        dmux_1 = DMux(self.a, self.sel3[0])
         dmux_1.update()
-        dmux4_1 = DMux4Way(dmux_1.x,[self.sel3[1],self.sel3[2]])
+        dmux4_1 = DMux4Way(dmux_1.x, [self.sel3[1], self.sel3[2]])
         dmux4_1.update()
-        dmux4_2 = DMux4Way(dmux_1.y,[self.sel3[1],self.sel3[2]])
+        dmux4_2 = DMux4Way(dmux_1.y, [self.sel3[1], self.sel3[2]])
         dmux4_2.update()
         self.x0 = dmux4_1.w
         self.x1 = dmux4_1.x
@@ -353,3 +367,11 @@ class DMux8Way:
         self.x6 = dmux4_2.y
         self.x7 = dmux4_2.z
         return(self.x0, self.x1, self.x2, self.x3, self.x4, self.x5, self.x6, self.x7)
+
+
+if __name__ == "__main__":
+    my_Not = Not()
+    my_Not.a = 0
+    my_Not.update()
+    my_Not.a = 1
+    my_Not.update()
