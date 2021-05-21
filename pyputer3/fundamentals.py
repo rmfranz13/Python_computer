@@ -389,6 +389,166 @@ class Or16:
         self.pin_x_bus[14] = self.or14.pin_x
         self.pin_x_bus[15] = self.or15.pin_x
 
+class Mux16:
+    def __init__(self):
+        self.pin_a_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.pin_b_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.pin_sel = 0
+        self.pin_x_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        self.mux0 = MuxGate()
+        self.mux1 = MuxGate()
+        self.mux2 = MuxGate()
+        self.mux3 = MuxGate()
+        self.mux4 = MuxGate()
+        self.mux5 = MuxGate()
+        self.mux6 = MuxGate()
+        self.mux7 = MuxGate()
+        self.mux8 = MuxGate()
+        self.mux9 = MuxGate()
+        self.mux10 = MuxGate()
+        self.mux11 = MuxGate()
+        self.mux12 = MuxGate()
+        self.mux13 = MuxGate()
+        self.mux14 = MuxGate()
+        self.mux15 = MuxGate()
+
+    def update(self):
+        self.mux0.pin_sel = self.pin_sel
+        self.mux1.pin_sel = self.pin_sel
+        self.mux2.pin_sel = self.pin_sel
+        self.mux3.pin_sel = self.pin_sel
+        self.mux4.pin_sel = self.pin_sel
+        self.mux5.pin_sel = self.pin_sel
+        self.mux6.pin_sel = self.pin_sel
+        self.mux7.pin_sel = self.pin_sel
+        self.mux8.pin_sel = self.pin_sel
+        self.mux9.pin_sel = self.pin_sel
+        self.mux10.pin_sel = self.pin_sel
+        self.mux11.pin_sel = self.pin_sel
+        self.mux12.pin_sel = self.pin_sel
+        self.mux13.pin_sel = self.pin_sel
+        self.mux14.pin_sel = self.pin_sel
+        self.mux15.pin_sel = self.pin_sel
+
+        self.mux0.pin_a = self.pin_a_bus[0]
+        self.mux1.pin_a = self.pin_a_bus[1]
+        self.mux2.pin_a = self.pin_a_bus[2]
+        self.mux3.pin_a = self.pin_a_bus[3]
+        self.mux4.pin_a = self.pin_a_bus[4]
+        self.mux5.pin_a = self.pin_a_bus[5]
+        self.mux6.pin_a = self.pin_a_bus[6]
+        self.mux7.pin_a = self.pin_a_bus[7]
+        self.mux8.pin_a = self.pin_a_bus[8]
+        self.mux9.pin_a = self.pin_a_bus[9]
+        self.mux10.pin_a = self.pin_a_bus[10]
+        self.mux11.pin_a = self.pin_a_bus[11]
+        self.mux12.pin_a = self.pin_a_bus[12]
+        self.mux13.pin_a = self.pin_a_bus[13]
+        self.mux14.pin_a = self.pin_a_bus[14]
+        self.mux15.pin_a = self.pin_a_bus[15]
+
+        self.mux0.pin_b = self.pin_b_bus[0]
+        self.mux1.pin_b = self.pin_b_bus[1]
+        self.mux2.pin_b = self.pin_b_bus[2]
+        self.mux3.pin_b = self.pin_b_bus[3]
+        self.mux4.pin_b = self.pin_b_bus[4]
+        self.mux5.pin_b = self.pin_b_bus[5]
+        self.mux6.pin_b = self.pin_b_bus[6]
+        self.mux7.pin_b = self.pin_b_bus[7]
+        self.mux8.pin_b = self.pin_b_bus[8]
+        self.mux9.pin_b = self.pin_b_bus[9]
+        self.mux10.pin_b = self.pin_b_bus[10]
+        self.mux11.pin_b = self.pin_b_bus[11]
+        self.mux12.pin_b = self.pin_b_bus[12]
+        self.mux13.pin_b = self.pin_b_bus[13]
+        self.mux14.pin_b = self.pin_b_bus[14]
+        self.mux15.pin_b = self.pin_b_bus[15]
+
+        self.mux0.update()
+        self.mux1.update()
+        self.mux2.update()
+        self.mux3.update()
+        self.mux4.update()
+        self.mux5.update()
+        self.mux6.update()
+        self.mux7.update()
+        self.mux8.update()
+        self.mux9.update()
+        self.mux10.update()
+        self.mux11.update()
+        self.mux12.update()
+        self.mux13.update()
+        self.mux14.update()
+        self.mux15.update()
+
+        self.pin_x_bus[0] = self.mux0.pin_x
+        self.pin_x_bus[1] = self.mux1.pin_x
+        self.pin_x_bus[2] = self.mux2.pin_x
+        self.pin_x_bus[3] = self.mux3.pin_x
+        self.pin_x_bus[4] = self.mux4.pin_x
+        self.pin_x_bus[5] = self.mux5.pin_x
+        self.pin_x_bus[6] = self.mux6.pin_x
+        self.pin_x_bus[7] = self.mux7.pin_x
+        self.pin_x_bus[8] = self.mux8.pin_x
+        self.pin_x_bus[9] = self.mux9.pin_x
+        self.pin_x_bus[10] = self.mux10.pin_x
+        self.pin_x_bus[11] = self.mux11.pin_x
+        self.pin_x_bus[12] = self.mux12.pin_x
+        self.pin_x_bus[13] = self.mux13.pin_x
+        self.pin_x_bus[14] = self.mux14.pin_x
+        self.pin_x_bus[15] = self.mux15.pin_x
+
+
+class Or8Way:
+    def __init__(self):
+        self.pin_a = 0
+        self.pin_b = 0
+        self.pin_c = 0
+        self.pin_d = 0
+        self.pin_e = 0
+        self.pin_f = 0
+        self.pin_g = 0
+        self.pin_h = 0
+
+        self.or00 = OrGate()
+        self.or01 = OrGate()
+        self.or02 = OrGate()
+        self.or03 = OrGate()
+        self.or10 = OrGate()
+        self.or11 = OrGate()
+        self.or20 = OrGate()
+
+    def update(self):
+        self.or00.pin_a = self.pin_a
+        self.or00.pin_b = self.pin_b
+        self.or01.pin_a = self.pin_c
+        self.or01.pin_b = self.pin_d
+        self.or02.pin_a = self.pin_e
+        self.or02.pin_b = self.pin_f
+        self.or03.pin_a = self.pin_g
+        self.or03.pin_b = self.pin_h
+
+        self.or00.update()
+        self.or01.update()
+        self.or02.update()
+        self.or03.update()
+
+        self.or10.pin_a = self.or00.pin_x
+        self.or10.pin_b = self.or01.pin_x
+        self.or11.pin_a = self.or02.pin_x
+        self.or11.pin_b = self.or03.pin_x
+
+        self.or10.update()
+        self.or11.update()
+
+        self.or20.pin_a = self.or10.pin_x
+        self.or20.pin_b = self.or11.pin_x
+
+        self.or20.update()
+
+        self.pin_x = self.or20.pin_x
+
 
 class NotGateTestBench:
     def __init__(self):
@@ -567,6 +727,62 @@ class Or16TestBench:
 
         print("Or16 test success!")
 
+class Mux16TestBench:
+    def __init__(self, testCycles=100):
+        self.mux16 = Mux16()
+        self.truth_table = []
+        for cycle in range(testCycles):
+            test_bus_a = [random.choice([0, 1]) for ii in range(16)]
+            test_bus_b = [random.choice([0, 1]) for ii in range(16)]
+            test_sel = random.choice([0, 1])
+            test_bus_x = [self.muxFunction(ii, jj, test_sel) for ii, jj in zip(test_bus_a, test_bus_b)]
+            self.truth_table.append([[test_bus_a, test_bus_b, test_sel], [test_bus_x]])
+
+    def muxFunction(self, pin_a_in, pin_b_in, pin_sel_in):
+        if(pin_sel_in):
+            return(pin_b_in)
+        else:
+            return(pin_a_in)
+
+    def test(self):
+        for solution in self.truth_table:
+            for ii in range(16):
+                self.mux16.pin_a_bus[ii] = solution[0][0][ii]
+                self.mux16.pin_b_bus[ii] = solution[0][1][ii]
+            self.mux16.pin_sel = solution[0][2]
+            self.mux16.update()
+            for ii in range(16):
+                assert self.mux16.pin_x_bus[ii] == solution[1][0][ii]
+
+        print("Mux16 test success!")
+
+class Or8WayTestBench:
+    def __init__(self, testCycles=100):
+        self.or8way = Or8Way()
+        self.truth_table = []
+        for cycle in range(testCycles):
+            test_input_bus = [random.choice([0, 1]) for ii in range(8)]
+            if any(test_input_bus):
+                test_pin_x = 1
+            else:
+                test_pin_x = 0
+            self.truth_table.append([test_input_bus, test_pin_x])
+
+    def test(self):
+        for solution in self.truth_table:
+            self.or8way.pin_a = solution[0][0]
+            self.or8way.pin_b = solution[0][1]
+            self.or8way.pin_c = solution[0][2]
+            self.or8way.pin_d = solution[0][3]
+            self.or8way.pin_e = solution[0][4]
+            self.or8way.pin_f = solution[0][5]
+            self.or8way.pin_g = solution[0][6]
+            self.or8way.pin_h = solution[0][7]
+
+            self.or8way.update()
+
+            assert self.or8way.pin_x == solution[1]
+        print("Or8Way test success!")
 
 
 if __name__ == '__main__':
@@ -592,3 +808,7 @@ if __name__ == '__main__':
     and16TestBench.test()
     or16TestBench = Or16TestBench(testCycles=testCycles)
     or16TestBench.test()
+    mux16TestBench = Mux16TestBench(testCycles=testCycles)
+    mux16TestBench.test()
+    or8WayTestBench = Or8WayTestBench(testCycles=testCycles)
+    or8WayTestBench.test()
