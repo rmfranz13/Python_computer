@@ -550,6 +550,377 @@ class Or8Way:
         self.pin_x = self.or20.pin_x
 
 
+class Mux4Way16:
+    def __init__(self):
+        self.pin_a_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.pin_b_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.pin_c_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.pin_d_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        self.pin_sel0 = 0
+        self.pin_sel1 = 0
+
+        self.pin_x_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        self.mux00 = Mux16()
+        self.mux01 = Mux16()
+        self.mux10 = Mux16()
+
+    def update(self):
+        self.mux00.pin_a_bus[0] = self.pin_a_bus[0]
+        self.mux00.pin_a_bus[1] = self.pin_a_bus[1]
+        self.mux00.pin_a_bus[2] = self.pin_a_bus[2]
+        self.mux00.pin_a_bus[3] = self.pin_a_bus[3]
+        self.mux00.pin_a_bus[4] = self.pin_a_bus[4]
+        self.mux00.pin_a_bus[5] = self.pin_a_bus[5]
+        self.mux00.pin_a_bus[6] = self.pin_a_bus[6]
+        self.mux00.pin_a_bus[7] = self.pin_a_bus[7]
+        self.mux00.pin_a_bus[8] = self.pin_a_bus[8]
+        self.mux00.pin_a_bus[9] = self.pin_a_bus[9]
+        self.mux00.pin_a_bus[10] = self.pin_a_bus[10]
+        self.mux00.pin_a_bus[11] = self.pin_a_bus[11]
+        self.mux00.pin_a_bus[12] = self.pin_a_bus[12]
+        self.mux00.pin_a_bus[13] = self.pin_a_bus[13]
+        self.mux00.pin_a_bus[14] = self.pin_a_bus[14]
+        self.mux00.pin_a_bus[15] = self.pin_a_bus[15]
+
+        self.mux00.pin_b_bus[0] = self.pin_b_bus[0]
+        self.mux00.pin_b_bus[1] = self.pin_b_bus[1]
+        self.mux00.pin_b_bus[2] = self.pin_b_bus[2]
+        self.mux00.pin_b_bus[3] = self.pin_b_bus[3]
+        self.mux00.pin_b_bus[4] = self.pin_b_bus[4]
+        self.mux00.pin_b_bus[5] = self.pin_b_bus[5]
+        self.mux00.pin_b_bus[6] = self.pin_b_bus[6]
+        self.mux00.pin_b_bus[7] = self.pin_b_bus[7]
+        self.mux00.pin_b_bus[8] = self.pin_b_bus[8]
+        self.mux00.pin_b_bus[9] = self.pin_b_bus[9]
+        self.mux00.pin_b_bus[10] = self.pin_b_bus[10]
+        self.mux00.pin_b_bus[11] = self.pin_b_bus[11]
+        self.mux00.pin_b_bus[12] = self.pin_b_bus[12]
+        self.mux00.pin_b_bus[13] = self.pin_b_bus[13]
+        self.mux00.pin_b_bus[14] = self.pin_b_bus[14]
+        self.mux00.pin_b_bus[15] = self.pin_b_bus[15]
+
+        self.mux00.pin_sel = self.pin_sel0
+
+        self.mux01.pin_a_bus[0] = self.pin_c_bus[0]
+        self.mux01.pin_a_bus[1] = self.pin_c_bus[1]
+        self.mux01.pin_a_bus[2] = self.pin_c_bus[2]
+        self.mux01.pin_a_bus[3] = self.pin_c_bus[3]
+        self.mux01.pin_a_bus[4] = self.pin_c_bus[4]
+        self.mux01.pin_a_bus[5] = self.pin_c_bus[5]
+        self.mux01.pin_a_bus[6] = self.pin_c_bus[6]
+        self.mux01.pin_a_bus[7] = self.pin_c_bus[7]
+        self.mux01.pin_a_bus[8] = self.pin_c_bus[8]
+        self.mux01.pin_a_bus[9] = self.pin_c_bus[9]
+        self.mux01.pin_a_bus[10] = self.pin_c_bus[10]
+        self.mux01.pin_a_bus[11] = self.pin_c_bus[11]
+        self.mux01.pin_a_bus[12] = self.pin_c_bus[12]
+        self.mux01.pin_a_bus[13] = self.pin_c_bus[13]
+        self.mux01.pin_a_bus[14] = self.pin_c_bus[14]
+        self.mux01.pin_a_bus[15] = self.pin_c_bus[15]
+
+        self.mux01.pin_b_bus[0] = self.pin_d_bus[0]
+        self.mux01.pin_b_bus[1] = self.pin_d_bus[1]
+        self.mux01.pin_b_bus[2] = self.pin_d_bus[2]
+        self.mux01.pin_b_bus[3] = self.pin_d_bus[3]
+        self.mux01.pin_b_bus[4] = self.pin_d_bus[4]
+        self.mux01.pin_b_bus[5] = self.pin_d_bus[5]
+        self.mux01.pin_b_bus[6] = self.pin_d_bus[6]
+        self.mux01.pin_b_bus[7] = self.pin_d_bus[7]
+        self.mux01.pin_b_bus[8] = self.pin_d_bus[8]
+        self.mux01.pin_b_bus[9] = self.pin_d_bus[9]
+        self.mux01.pin_b_bus[10] = self.pin_d_bus[10]
+        self.mux01.pin_b_bus[11] = self.pin_d_bus[11]
+        self.mux01.pin_b_bus[12] = self.pin_d_bus[12]
+        self.mux01.pin_b_bus[13] = self.pin_d_bus[13]
+        self.mux01.pin_b_bus[14] = self.pin_d_bus[14]
+        self.mux01.pin_b_bus[15] = self.pin_d_bus[15]
+
+        self.mux01.pin_sel = self.pin_sel0
+
+        self.mux00.update()
+        self.mux01.update()
+
+        self.mux10.pin_a_bus[0] = self.mux00.pin_x_bus[0]
+        self.mux10.pin_a_bus[1] = self.mux00.pin_x_bus[1]
+        self.mux10.pin_a_bus[2] = self.mux00.pin_x_bus[2]
+        self.mux10.pin_a_bus[3] = self.mux00.pin_x_bus[3]
+        self.mux10.pin_a_bus[4] = self.mux00.pin_x_bus[4]
+        self.mux10.pin_a_bus[5] = self.mux00.pin_x_bus[5]
+        self.mux10.pin_a_bus[6] = self.mux00.pin_x_bus[6]
+        self.mux10.pin_a_bus[7] = self.mux00.pin_x_bus[7]
+        self.mux10.pin_a_bus[8] = self.mux00.pin_x_bus[8]
+        self.mux10.pin_a_bus[9] = self.mux00.pin_x_bus[9]
+        self.mux10.pin_a_bus[10] = self.mux00.pin_x_bus[10]
+        self.mux10.pin_a_bus[11] = self.mux00.pin_x_bus[11]
+        self.mux10.pin_a_bus[12] = self.mux00.pin_x_bus[12]
+        self.mux10.pin_a_bus[13] = self.mux00.pin_x_bus[13]
+        self.mux10.pin_a_bus[14] = self.mux00.pin_x_bus[14]
+        self.mux10.pin_a_bus[15] = self.mux00.pin_x_bus[15]
+
+        self.mux10.pin_b_bus[0] = self.mux01.pin_x_bus[0]
+        self.mux10.pin_b_bus[1] = self.mux01.pin_x_bus[1]
+        self.mux10.pin_b_bus[2] = self.mux01.pin_x_bus[2]
+        self.mux10.pin_b_bus[3] = self.mux01.pin_x_bus[3]
+        self.mux10.pin_b_bus[4] = self.mux01.pin_x_bus[4]
+        self.mux10.pin_b_bus[5] = self.mux01.pin_x_bus[5]
+        self.mux10.pin_b_bus[6] = self.mux01.pin_x_bus[6]
+        self.mux10.pin_b_bus[7] = self.mux01.pin_x_bus[7]
+        self.mux10.pin_b_bus[8] = self.mux01.pin_x_bus[8]
+        self.mux10.pin_b_bus[9] = self.mux01.pin_x_bus[9]
+        self.mux10.pin_b_bus[10] = self.mux01.pin_x_bus[10]
+        self.mux10.pin_b_bus[11] = self.mux01.pin_x_bus[11]
+        self.mux10.pin_b_bus[12] = self.mux01.pin_x_bus[12]
+        self.mux10.pin_b_bus[13] = self.mux01.pin_x_bus[13]
+        self.mux10.pin_b_bus[14] = self.mux01.pin_x_bus[14]
+        self.mux10.pin_b_bus[15] = self.mux01.pin_x_bus[15]
+
+        self.mux10.pin_sel = self.pin_sel1 
+
+        self.mux10.update()
+
+        self.pin_x_bus[0] = self.mux10.pin_x_bus[0]
+        self.pin_x_bus[1] = self.mux10.pin_x_bus[1]
+        self.pin_x_bus[2] = self.mux10.pin_x_bus[2]
+        self.pin_x_bus[3] = self.mux10.pin_x_bus[3]
+        self.pin_x_bus[4] = self.mux10.pin_x_bus[4]
+        self.pin_x_bus[5] = self.mux10.pin_x_bus[5]
+        self.pin_x_bus[6] = self.mux10.pin_x_bus[6]
+        self.pin_x_bus[7] = self.mux10.pin_x_bus[7]
+        self.pin_x_bus[8] = self.mux10.pin_x_bus[8]
+        self.pin_x_bus[9] = self.mux10.pin_x_bus[9]
+        self.pin_x_bus[10] = self.mux10.pin_x_bus[10]
+        self.pin_x_bus[11] = self.mux10.pin_x_bus[11]
+        self.pin_x_bus[12] = self.mux10.pin_x_bus[12]
+        self.pin_x_bus[13] = self.mux10.pin_x_bus[13]
+        self.pin_x_bus[14] = self.mux10.pin_x_bus[14]
+        self.pin_x_bus[15] = self.mux10.pin_x_bus[15]      
+
+class Mux8Way16:
+    def __init__(self):
+        self.pin_a_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.pin_b_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.pin_c_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.pin_d_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.pin_e_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.pin_f_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.pin_g_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.pin_h_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        
+        self.pin_sel0 = 0
+        self.pin_sel1 = 0
+        self.pin_sel2 = 0
+
+        self.pin_x_bus = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        self.mux4way0 = Mux4Way16()
+        self.mux4way1 = Mux4Way16()
+
+        self.mux20 = Mux16()
+
+    def update(self):
+        self.mux4way0.pin_a_bus[0] = self.pin_a_bus[0]
+        self.mux4way0.pin_a_bus[1] = self.pin_a_bus[1]
+        self.mux4way0.pin_a_bus[2] = self.pin_a_bus[2]
+        self.mux4way0.pin_a_bus[3] = self.pin_a_bus[3]
+        self.mux4way0.pin_a_bus[4] = self.pin_a_bus[4]
+        self.mux4way0.pin_a_bus[5] = self.pin_a_bus[5]
+        self.mux4way0.pin_a_bus[6] = self.pin_a_bus[6]
+        self.mux4way0.pin_a_bus[7] = self.pin_a_bus[7]
+        self.mux4way0.pin_a_bus[8] = self.pin_a_bus[8]
+        self.mux4way0.pin_a_bus[9] = self.pin_a_bus[9]
+        self.mux4way0.pin_a_bus[10] = self.pin_a_bus[10]
+        self.mux4way0.pin_a_bus[11] = self.pin_a_bus[11]
+        self.mux4way0.pin_a_bus[12] = self.pin_a_bus[12]
+        self.mux4way0.pin_a_bus[13] = self.pin_a_bus[13]
+        self.mux4way0.pin_a_bus[14] = self.pin_a_bus[14]
+        self.mux4way0.pin_a_bus[15] = self.pin_a_bus[15]
+
+        self.mux4way0.pin_b_bus[0] = self.pin_b_bus[0]
+        self.mux4way0.pin_b_bus[1] = self.pin_b_bus[1]
+        self.mux4way0.pin_b_bus[2] = self.pin_b_bus[2]
+        self.mux4way0.pin_b_bus[3] = self.pin_b_bus[3]
+        self.mux4way0.pin_b_bus[4] = self.pin_b_bus[4]
+        self.mux4way0.pin_b_bus[5] = self.pin_b_bus[5]
+        self.mux4way0.pin_b_bus[6] = self.pin_b_bus[6]
+        self.mux4way0.pin_b_bus[7] = self.pin_b_bus[7]
+        self.mux4way0.pin_b_bus[8] = self.pin_b_bus[8]
+        self.mux4way0.pin_b_bus[9] = self.pin_b_bus[9]
+        self.mux4way0.pin_b_bus[10] = self.pin_b_bus[10]
+        self.mux4way0.pin_b_bus[11] = self.pin_b_bus[11]
+        self.mux4way0.pin_b_bus[12] = self.pin_b_bus[12]
+        self.mux4way0.pin_b_bus[13] = self.pin_b_bus[13]
+        self.mux4way0.pin_b_bus[14] = self.pin_b_bus[14]
+        self.mux4way0.pin_b_bus[15] = self.pin_b_bus[15]
+
+        self.mux4way0.pin_c_bus[0] = self.pin_c_bus[0]
+        self.mux4way0.pin_c_bus[1] = self.pin_c_bus[1]
+        self.mux4way0.pin_c_bus[2] = self.pin_c_bus[2]
+        self.mux4way0.pin_c_bus[3] = self.pin_c_bus[3]
+        self.mux4way0.pin_c_bus[4] = self.pin_c_bus[4]
+        self.mux4way0.pin_c_bus[5] = self.pin_c_bus[5]
+        self.mux4way0.pin_c_bus[6] = self.pin_c_bus[6]
+        self.mux4way0.pin_c_bus[7] = self.pin_c_bus[7]
+        self.mux4way0.pin_c_bus[8] = self.pin_c_bus[8]
+        self.mux4way0.pin_c_bus[9] = self.pin_c_bus[9]
+        self.mux4way0.pin_c_bus[10] = self.pin_c_bus[10]
+        self.mux4way0.pin_c_bus[11] = self.pin_c_bus[11]
+        self.mux4way0.pin_c_bus[12] = self.pin_c_bus[12]
+        self.mux4way0.pin_c_bus[13] = self.pin_c_bus[13]
+        self.mux4way0.pin_c_bus[14] = self.pin_c_bus[14]
+        self.mux4way0.pin_c_bus[15] = self.pin_c_bus[15]
+        
+        self.mux4way0.pin_d_bus[0] = self.pin_d_bus[0]
+        self.mux4way0.pin_d_bus[1] = self.pin_d_bus[1]
+        self.mux4way0.pin_d_bus[2] = self.pin_d_bus[2]
+        self.mux4way0.pin_d_bus[3] = self.pin_d_bus[3]
+        self.mux4way0.pin_d_bus[4] = self.pin_d_bus[4]
+        self.mux4way0.pin_d_bus[5] = self.pin_d_bus[5]
+        self.mux4way0.pin_d_bus[6] = self.pin_d_bus[6]
+        self.mux4way0.pin_d_bus[7] = self.pin_d_bus[7]
+        self.mux4way0.pin_d_bus[8] = self.pin_d_bus[8]
+        self.mux4way0.pin_d_bus[9] = self.pin_d_bus[9]
+        self.mux4way0.pin_d_bus[10] = self.pin_d_bus[10]
+        self.mux4way0.pin_d_bus[11] = self.pin_d_bus[11]
+        self.mux4way0.pin_d_bus[12] = self.pin_d_bus[12]
+        self.mux4way0.pin_d_bus[13] = self.pin_d_bus[13]
+        self.mux4way0.pin_d_bus[14] = self.pin_d_bus[14]
+        self.mux4way0.pin_d_bus[15] = self.pin_d_bus[15]
+        
+        self.mux4way0.pin_sel0 = self.pin_sel0
+        self.mux4way0.pin_sel1 = self.pin_sel1 
+
+        self.mux4way1.pin_a_bus[0] = self.pin_e_bus[0]
+        self.mux4way1.pin_a_bus[1] = self.pin_e_bus[1]
+        self.mux4way1.pin_a_bus[2] = self.pin_e_bus[2]
+        self.mux4way1.pin_a_bus[3] = self.pin_e_bus[3]
+        self.mux4way1.pin_a_bus[4] = self.pin_e_bus[4]
+        self.mux4way1.pin_a_bus[5] = self.pin_e_bus[5]
+        self.mux4way1.pin_a_bus[6] = self.pin_e_bus[6]
+        self.mux4way1.pin_a_bus[7] = self.pin_e_bus[7]
+        self.mux4way1.pin_a_bus[8] = self.pin_e_bus[8]
+        self.mux4way1.pin_a_bus[9] = self.pin_e_bus[9]
+        self.mux4way1.pin_a_bus[10] = self.pin_e_bus[10]
+        self.mux4way1.pin_a_bus[11] = self.pin_e_bus[11]
+        self.mux4way1.pin_a_bus[12] = self.pin_e_bus[12]
+        self.mux4way1.pin_a_bus[13] = self.pin_e_bus[13]
+        self.mux4way1.pin_a_bus[14] = self.pin_e_bus[14]
+        self.mux4way1.pin_a_bus[15] = self.pin_e_bus[15]
+         
+        self.mux4way1.pin_b_bus[0] = self.pin_f_bus[0]
+        self.mux4way1.pin_b_bus[1] = self.pin_f_bus[1]
+        self.mux4way1.pin_b_bus[2] = self.pin_f_bus[2]
+        self.mux4way1.pin_b_bus[3] = self.pin_f_bus[3]
+        self.mux4way1.pin_b_bus[4] = self.pin_f_bus[4]
+        self.mux4way1.pin_b_bus[5] = self.pin_f_bus[5]
+        self.mux4way1.pin_b_bus[6] = self.pin_f_bus[6]
+        self.mux4way1.pin_b_bus[7] = self.pin_f_bus[7]
+        self.mux4way1.pin_b_bus[8] = self.pin_f_bus[8]
+        self.mux4way1.pin_b_bus[9] = self.pin_f_bus[9]
+        self.mux4way1.pin_b_bus[10] = self.pin_f_bus[10]
+        self.mux4way1.pin_b_bus[11] = self.pin_f_bus[11]
+        self.mux4way1.pin_b_bus[12] = self.pin_f_bus[12]
+        self.mux4way1.pin_b_bus[13] = self.pin_f_bus[13]
+        self.mux4way1.pin_b_bus[14] = self.pin_f_bus[14]
+        self.mux4way1.pin_b_bus[15] = self.pin_f_bus[15]
+        
+        self.mux4way1.pin_c_bus[0] = self.pin_g_bus[0]
+        self.mux4way1.pin_c_bus[1] = self.pin_g_bus[1]
+        self.mux4way1.pin_c_bus[2] = self.pin_g_bus[2]
+        self.mux4way1.pin_c_bus[3] = self.pin_g_bus[3]
+        self.mux4way1.pin_c_bus[4] = self.pin_g_bus[4]
+        self.mux4way1.pin_c_bus[5] = self.pin_g_bus[5]
+        self.mux4way1.pin_c_bus[6] = self.pin_g_bus[6]
+        self.mux4way1.pin_c_bus[7] = self.pin_g_bus[7]
+        self.mux4way1.pin_c_bus[8] = self.pin_g_bus[8]
+        self.mux4way1.pin_c_bus[9] = self.pin_g_bus[9]
+        self.mux4way1.pin_c_bus[10] = self.pin_g_bus[10]
+        self.mux4way1.pin_c_bus[11] = self.pin_g_bus[11]
+        self.mux4way1.pin_c_bus[12] = self.pin_g_bus[12]
+        self.mux4way1.pin_c_bus[13] = self.pin_g_bus[13]
+        self.mux4way1.pin_c_bus[14] = self.pin_g_bus[14]
+        self.mux4way1.pin_c_bus[15] = self.pin_g_bus[15]
+
+        self.mux4way1.pin_d_bus[0] = self.pin_h_bus[0]
+        self.mux4way1.pin_d_bus[1] = self.pin_h_bus[1]
+        self.mux4way1.pin_d_bus[2] = self.pin_h_bus[2]
+        self.mux4way1.pin_d_bus[3] = self.pin_h_bus[3]
+        self.mux4way1.pin_d_bus[4] = self.pin_h_bus[4]
+        self.mux4way1.pin_d_bus[5] = self.pin_h_bus[5]
+        self.mux4way1.pin_d_bus[6] = self.pin_h_bus[6]
+        self.mux4way1.pin_d_bus[7] = self.pin_h_bus[7]
+        self.mux4way1.pin_d_bus[8] = self.pin_h_bus[8]
+        self.mux4way1.pin_d_bus[9] = self.pin_h_bus[9]
+        self.mux4way1.pin_d_bus[10] = self.pin_h_bus[10]
+        self.mux4way1.pin_d_bus[11] = self.pin_h_bus[11]
+        self.mux4way1.pin_d_bus[12] = self.pin_h_bus[12]
+        self.mux4way1.pin_d_bus[13] = self.pin_h_bus[13]
+        self.mux4way1.pin_d_bus[14] = self.pin_h_bus[14]
+        self.mux4way1.pin_d_bus[15] = self.pin_h_bus[15]
+        
+        self.mux4way1.pin_sel0 = self.pin_sel0 
+        self.mux4way1.pin_sel1 = self.pin_sel1 
+
+        self.mux4way0.update()
+        self.mux4way1.update()
+
+        self.mux20.pin_a_bus[0] = self.mux4way0.pin_x_bus[0]
+        self.mux20.pin_a_bus[1] = self.mux4way0.pin_x_bus[1]
+        self.mux20.pin_a_bus[2] = self.mux4way0.pin_x_bus[2]
+        self.mux20.pin_a_bus[3] = self.mux4way0.pin_x_bus[3]
+        self.mux20.pin_a_bus[4] = self.mux4way0.pin_x_bus[4]
+        self.mux20.pin_a_bus[5] = self.mux4way0.pin_x_bus[5]
+        self.mux20.pin_a_bus[6] = self.mux4way0.pin_x_bus[6]
+        self.mux20.pin_a_bus[7] = self.mux4way0.pin_x_bus[7]
+        self.mux20.pin_a_bus[8] = self.mux4way0.pin_x_bus[8]
+        self.mux20.pin_a_bus[9] = self.mux4way0.pin_x_bus[9]
+        self.mux20.pin_a_bus[10] = self.mux4way0.pin_x_bus[10]
+        self.mux20.pin_a_bus[11] = self.mux4way0.pin_x_bus[11]
+        self.mux20.pin_a_bus[12] = self.mux4way0.pin_x_bus[12]
+        self.mux20.pin_a_bus[13] = self.mux4way0.pin_x_bus[13]
+        self.mux20.pin_a_bus[14] = self.mux4way0.pin_x_bus[14]
+        self.mux20.pin_a_bus[15] = self.mux4way0.pin_x_bus[15]
+        
+        self.mux20.pin_b_bus[0] = self.mux4way1.pin_x_bus[0]
+        self.mux20.pin_b_bus[1] = self.mux4way1.pin_x_bus[1]
+        self.mux20.pin_b_bus[2] = self.mux4way1.pin_x_bus[2]
+        self.mux20.pin_b_bus[3] = self.mux4way1.pin_x_bus[3]
+        self.mux20.pin_b_bus[4] = self.mux4way1.pin_x_bus[4]
+        self.mux20.pin_b_bus[5] = self.mux4way1.pin_x_bus[5]
+        self.mux20.pin_b_bus[6] = self.mux4way1.pin_x_bus[6]
+        self.mux20.pin_b_bus[7] = self.mux4way1.pin_x_bus[7]
+        self.mux20.pin_b_bus[8] = self.mux4way1.pin_x_bus[8]
+        self.mux20.pin_b_bus[9] = self.mux4way1.pin_x_bus[9]
+        self.mux20.pin_b_bus[10] = self.mux4way1.pin_x_bus[10]
+        self.mux20.pin_b_bus[11] = self.mux4way1.pin_x_bus[11]
+        self.mux20.pin_b_bus[12] = self.mux4way1.pin_x_bus[12]
+        self.mux20.pin_b_bus[13] = self.mux4way1.pin_x_bus[13]
+        self.mux20.pin_b_bus[14] = self.mux4way1.pin_x_bus[14]
+        self.mux20.pin_b_bus[15] = self.mux4way1.pin_x_bus[15]
+        
+        self.mux20.pin_sel = self.pin_sel2
+
+        self.mux20.update()
+
+        self.pin_x_bus[0] = self.mux20.pin_x_bus[0]
+        self.pin_x_bus[1] = self.mux20.pin_x_bus[1]
+        self.pin_x_bus[2] = self.mux20.pin_x_bus[2]
+        self.pin_x_bus[3] = self.mux20.pin_x_bus[3]
+        self.pin_x_bus[4] = self.mux20.pin_x_bus[4]
+        self.pin_x_bus[5] = self.mux20.pin_x_bus[5]
+        self.pin_x_bus[6] = self.mux20.pin_x_bus[6]
+        self.pin_x_bus[7] = self.mux20.pin_x_bus[7]
+        self.pin_x_bus[8] = self.mux20.pin_x_bus[8]
+        self.pin_x_bus[9] = self.mux20.pin_x_bus[9]
+        self.pin_x_bus[10] = self.mux20.pin_x_bus[10]
+        self.pin_x_bus[11] = self.mux20.pin_x_bus[11]
+        self.pin_x_bus[12] = self.mux20.pin_x_bus[12]
+        self.pin_x_bus[13] = self.mux20.pin_x_bus[13]
+        self.pin_x_bus[14] = self.mux20.pin_x_bus[14]
+        self.pin_x_bus[15] = self.mux20.pin_x_bus[15]
+
+
 class NotGateTestBench:
     def __init__(self):
         self.notGate = NotGate()
@@ -784,6 +1155,115 @@ class Or8WayTestBench:
             assert self.or8way.pin_x == solution[1]
         print("Or8Way test success!")
 
+class Mux4Way16TestBench:
+    def __init__(self, testCycles=100):
+        self.mux4way16 = Mux4Way16()
+        self.truth_table = []
+        for cycle in range(testCycles):
+            test_a_bus = [random.choice([0, 1]) for ii in range(16)]
+            test_b_bus = [random.choice([0, 1]) for ii in range(16)]
+            test_c_bus = [random.choice([0, 1]) for ii in range(16)]
+            test_d_bus = [random.choice([0, 1]) for ii in range(16)]
+            test_sel0 = random.choice([0, 1])
+            test_sel1 = random.choice([0, 1])
+
+            test_x_bus = self.thisFunction(test_a_bus, test_b_bus, test_c_bus, test_d_bus, test_sel0, test_sel1)
+            self.truth_table.append([[test_a_bus, test_b_bus, test_c_bus, test_d_bus, test_sel0, test_sel1], test_x_bus])
+
+    def thisFunction(self, test_a_bus_in, test_b_bus_in, test_c_bus_in, test_d_bus_in, test_sel0_in, test_sel1_in):
+        if(not(test_sel1_in) and not(test_sel0_in)):
+            test_x_bus_out = test_a_bus_in
+        elif(not(test_sel1_in) and test_sel0_in):
+            test_x_bus_out = test_b_bus_in 
+        elif(test_sel1_in and not(test_sel0_in)):
+            test_x_bus_out = test_c_bus_in 
+        elif(test_sel1_in and test_sel0_in):
+            test_x_bus_out = test_d_bus_in
+        else:
+            print("Error: invalid values on sel lines in Mux4Way16TestBench")
+            exit(1)
+        return(test_x_bus_out)
+
+    def test(self):
+        for solution in self.truth_table:
+            for ii in range(16):
+                self.mux4way16.pin_a_bus[ii] = solution[0][0][ii]
+                self.mux4way16.pin_b_bus[ii] = solution[0][1][ii]
+                self.mux4way16.pin_c_bus[ii] = solution[0][2][ii]
+                self.mux4way16.pin_d_bus[ii] = solution[0][3][ii]
+            self.mux4way16.pin_sel0 = solution[0][4]
+            self.mux4way16.pin_sel1 = solution[0][5]
+
+            self.mux4way16.update()
+
+            for ii in range(16):
+                assert self.mux4way16.pin_x_bus[ii] == solution[1][ii]
+        print("Mux4Way16 test success!!")
+
+class Mux8Way16TestBench:
+    def __init__(self, testCycles=100):
+        self.mux8way16 = Mux8Way16()
+        self.truth_table = []
+        for cycle in range(testCycles):
+            test_a_bus = [random.choice([0, 1]) for ii in range(16)]
+            test_b_bus = [random.choice([0, 1]) for ii in range(16)]
+            test_c_bus = [random.choice([0, 1]) for ii in range(16)]
+            test_d_bus = [random.choice([0, 1]) for ii in range(16)]
+            test_e_bus = [random.choice([0, 1]) for ii in range(16)]
+            test_f_bus = [random.choice([0, 1]) for ii in range(16)]
+            test_g_bus = [random.choice([0, 1]) for ii in range(16)]
+            test_h_bus = [random.choice([0, 1]) for ii in range(16)]
+            test_sel0 = random.choice([0, 1])
+            test_sel1 = random.choice([0, 1])
+            test_sel2 = random.choice([0, 1])
+
+            test_x_bus = self.thisFunction(test_a_bus, test_b_bus, test_c_bus, test_d_bus, test_e_bus, test_f_bus, test_g_bus, test_h_bus, test_sel0, test_sel1, test_sel2)
+            self.truth_table.append([[test_a_bus, test_b_bus, test_c_bus, test_d_bus, test_e_bus, test_f_bus, test_g_bus, test_h_bus, test_sel0, test_sel1, test_sel2], test_x_bus])
+
+    def thisFunction(self, test_a_bus_in, test_b_bus_in, test_c_bus_in, test_d_bus_in, test_e_bus_in, test_f_bus_in, test_g_bus_in, test_h_bus_in, test_sel0_in, test_sel1_in, test_sel2_in):
+        test_sel_array = [test_sel2_in, test_sel1_in, test_sel0_in]
+        if(test_sel_array == [0, 0, 0]):
+            test_x_bus_out = test_a_bus_in
+        elif(test_sel_array == [0, 0, 1]):
+            test_x_bus_out = test_b_bus_in 
+        elif(test_sel_array == [0, 1, 0]):
+            test_x_bus_out = test_c_bus_in 
+        elif(test_sel_array == [0, 1, 1]):
+            test_x_bus_out = test_d_bus_in
+        elif(test_sel_array == [1, 0, 0]):
+            test_x_bus_out = test_e_bus_in
+        elif(test_sel_array == [1, 0, 1]):
+            test_x_bus_out = test_f_bus_in
+        elif(test_sel_array == [1, 1, 0]):
+            test_x_bus_out = test_g_bus_in
+        elif(test_sel_array == [1, 1, 1]):
+            test_x_bus_out = test_h_bus_in
+        else:
+            print("Error: invalid values on sel lines in Mux4Way16TestBench")
+            exit(1)
+        return(test_x_bus_out)
+
+    def test(self):
+        for solution in self.truth_table:
+            for ii in range(16):
+                self.mux8way16.pin_a_bus[ii] = solution[0][0][ii]
+                self.mux8way16.pin_b_bus[ii] = solution[0][1][ii]
+                self.mux8way16.pin_c_bus[ii] = solution[0][2][ii]
+                self.mux8way16.pin_d_bus[ii] = solution[0][3][ii]
+                self.mux8way16.pin_e_bus[ii] = solution[0][4][ii]
+                self.mux8way16.pin_f_bus[ii] = solution[0][5][ii]
+                self.mux8way16.pin_g_bus[ii] = solution[0][6][ii]
+                self.mux8way16.pin_h_bus[ii] = solution[0][7][ii]
+            self.mux8way16.pin_sel0 = solution[0][8]
+            self.mux8way16.pin_sel1 = solution[0][9]
+            self.mux8way16.pin_sel2 = solution[0][10]
+
+            self.mux8way16.update()
+
+            for ii in range(16):
+                assert self.mux8way16.pin_x_bus[ii] == solution[1][ii]
+        print("Mux8Way16 test success!!")
+
 
 if __name__ == '__main__':
     import random
@@ -812,3 +1292,8 @@ if __name__ == '__main__':
     mux16TestBench.test()
     or8WayTestBench = Or8WayTestBench(testCycles=testCycles)
     or8WayTestBench.test()
+    mux4Way16TestBench = Mux4Way16TestBench(testCycles=testCycles)
+    mux4Way16TestBench.test()
+    # pdb.set_trace()
+    mux8way16TestBench = Mux8Way16TestBench(testCycles=testCycles)
+    mux8way16TestBench.test()
