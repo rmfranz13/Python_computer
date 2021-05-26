@@ -920,6 +920,84 @@ class Mux8Way16:
         self.pin_x_bus[14] = self.mux20.pin_x_bus[14]
         self.pin_x_bus[15] = self.mux20.pin_x_bus[15]
 
+class DMux4Way:
+    def __init__(self):
+        self.pin_a = 0
+
+        self.pin_sel0 = 0
+        self.pin_sel1 = 0
+
+        self.pin_w = 0
+        self.pin_x = 0
+        self.pin_y = 0
+        self.pin_z = 0
+
+        self.dmux00 = DMuxGate()
+        self.dmux10 = DMuxGate()
+        self.dmux11 = DMuxGate()
+
+    def update(self):
+        self.dmux00.pin_a = self.pin_a
+        self.dmux00.pin_sel = self.pin_sel0
+        self.dmux00.update()
+
+        self.dmux10.pin_a = self.dmux00.pin_x
+        self.dmux11.pin_a = self.dmux00.pin_y
+        self.dmux10.pin_sel = self.pin_sel1
+        self.dmux11.pin_sel = self.pin_sel1
+        self.dmux10.update()
+        self.dmux11.update()
+
+        self.pin_w = self.dmux10.pin_x
+        self.pin_x = self.dmux10.pin_y
+        self.pin_y = self.dmux11.pin_x
+        self.pin_z = self.dmux11.pin_y
+
+class DMux8Way:
+    def __init__(self):
+        self.pin_a = 0
+        
+        self.pin_sel0 = 0
+        self.pin_sel1 = 0
+        self.pin_sel2 = 0
+
+        self.pin_s = 0
+        self.pin_t = 0
+        self.pin_u = 0
+        self.pin_v = 0
+        self.pin_w = 0
+        self.pin_x = 0
+        self.pin_y = 0
+        self.pin_z = 0
+
+        self.dmux00 = DMuxGate()
+        self.dmux10 = DMux4Way()
+        self.dmux11 = DMux4Way()
+
+    def update(self):
+        self.dmux00.pin_a = self.pin_a
+        self.dmux00.pin_sel = self.pin_sel0
+        self.dmux00.update()
+
+        self.dmux10.pin_a = self.dmux00.pin_x
+        self.dmux10.pin_sel0 = self.pin_sel1
+        self.dmux10.pin_sel1 = self.pin_sel2
+        self.dmux11.pin_a = self.dmux00.pin_y
+        self.dmux11.pin_sel0 = self.pin_sel1
+        self.dmux11.pin_sel1 = self.pin_sel2
+
+        self.dmux10.update()
+        self.dmux11.update()
+
+        self.pin_s = self.dmux10.pin_w
+        self.pin_t = self.dmux10.pin_x
+        self.pin_u = self.dmux10.pin_y
+        self.pin_v = self.dmux10.pin_z
+        self.pin_w = self.dmux11.pin_w
+        self.pin_x = self.dmux11.pin_x
+        self.pin_y = self.dmux11.pin_y
+        self.pin_z = self.dmux11.pin_z
+
 
 class NotGateTestBench:
     def __init__(self):
@@ -1264,6 +1342,62 @@ class Mux8Way16TestBench:
                 assert self.mux8way16.pin_x_bus[ii] == solution[1][ii]
         print("Mux8Way16 test success!!")
 
+class DMux4WayTestBench:
+    def __init__(self):
+        self.dmux4Way = DMux4Way()
+        self.truth_table = [[[0, 0, 0], [0, 0, 0, 0]],
+                            [[0, 0, 1], [0, 0, 0, 0]],
+                            [[0, 1, 0], [0, 0, 0, 0]],
+                            [[0, 1, 1], [0, 0, 0, 0]],
+                            [[1, 0, 0], [1, 0, 0, 0]],
+                            [[1, 0, 1], [0, 1, 0, 0]],
+                            [[1, 1, 0], [0, 0, 1, 0]],
+                            [[1, 1, 1], [0, 0, 0, 1]]]
+
+    def test(self):
+        for solution in self.truth_table:
+            self.dmux4Way.pin_a = solution[0][0]
+            self.dmux4Way.pin_sel0 = solution[0][1]
+            self.dmux4Way.pin_sel1 = solution[0][2]
+
+            self.dmux4Way.update()
+
+            assert [self.dmux4Way.pin_w, self.dmux4Way.pin_x, self.dmux4Way.pin_y, self.dmux4Way.pin_z] == solution[1]
+
+        print("DMux4Way test success!!")
+
+class DMux8WayTestBench:
+    def __init__(self):
+        self.dmux8Way = DMux8Way()
+        self.truth_table = [[[0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]],
+                            [[0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0]],
+                            [[0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0]],
+                            [[0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0]],
+                            [[0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]],
+                            [[0, 1, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0]],
+                            [[0, 1, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0]],
+                            [[0, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0]],
+                            [[1, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0]],
+                            [[1, 0, 0, 1], [0, 1, 0, 0, 0, 0, 0, 0]],
+                            [[1, 0, 1, 0], [0, 0, 1, 0, 0, 0, 0, 0]],
+                            [[1, 0, 1, 1], [0, 0, 0, 1, 0, 0, 0, 0]],
+                            [[1, 1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0]],
+                            [[1, 1, 0, 1], [0, 0, 0, 0, 0, 1, 0, 0]],
+                            [[1, 1, 1, 0], [0, 0, 0, 0, 0, 0, 1, 0]],
+                            [[1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 1]]]
+
+    def test(self):
+        for solution in self.truth_table:
+            self.dmux8Way.pin_a = solution[0][0]
+            self.dmux8Way.pin_sel0 = solution[0][1]
+            self.dmux8Way.pin_sel1 = solution[0][2]
+            self.dmux8Way.pin_sel2 = solution[0][3]
+
+            self.dmux8Way.update()
+            test_output = [self.dmux8Way.pin_s, self.dmux8Way.pin_t, self.dmux8Way.pin_u, self.dmux8Way.pin_v, self.dmux8Way.pin_w, self.dmux8Way.pin_x, self.dmux8Way.pin_y, self.dmux8Way.pin_z]
+            assert test_output == solution[1]
+
+        print("DMux8Way test success!!")
 
 if __name__ == '__main__':
     import random
@@ -1294,6 +1428,9 @@ if __name__ == '__main__':
     or8WayTestBench.test()
     mux4Way16TestBench = Mux4Way16TestBench(testCycles=testCycles)
     mux4Way16TestBench.test()
-    # pdb.set_trace()
     mux8way16TestBench = Mux8Way16TestBench(testCycles=testCycles)
     mux8way16TestBench.test()
+    dmux4WayTestBench = DMux4WayTestBench()
+    dmux4WayTestBench.test()
+    dmux8WayTestBench = DMux8WayTestBench()
+    dmux8WayTestBench.test()
