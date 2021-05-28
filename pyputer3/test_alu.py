@@ -120,6 +120,8 @@ class Incr16TestBench:
 if __name__ == '__main__':
     import random 
     import pdb 
+    print("\n")
+    # pdb.set_trace()
     testCycles = 100
     halfAdderTestBench = HalfAdderTestBench()
     halfAdderTestBench.test()
@@ -129,3 +131,54 @@ if __name__ == '__main__':
     add16TestBench.test()
     inc16TestBench = Incr16TestBench(testCycles=testCycles)
     inc16TestBench.test()
+
+    print("\n\n>>>> ALU TEST >>>>>")
+    print("Press enter to run each ALU function on a random inputs (same x16 and y16 for each test).")
+    input("Judge correctness for yourself.")
+
+    # Test ALU "manually" (doesn't explicitly handle all inputs)
+    alu = ALU()
+    control_bit_test = {'zero': [1, 0, 1, 0, 1, 0], 
+                        'one': [1, 1, 1, 1, 1, 1],
+                        'negative_one': [1, 1, 1, 0, 1, 0],
+                        'x': [0, 0, 1, 1, 0, 0],
+                        'y': [1, 1, 0, 0, 0, 0],
+                        'not_x': [0, 0, 1, 1, 0, 1],
+                        'not_y': [1, 1, 0, 0, 0, 1],
+                        'negative_x': [0, 0, 1, 1, 1, 1],
+                        'negative_y': [1, 1, 0, 0, 1, 1],
+                        'inc_x': [0, 1, 1, 1, 1, 1],
+                        'inc_y': [1, 1, 0, 1, 1, 1],
+                        'dec_x': [0, 0, 1, 1, 1, 0],
+                        'dec_y': [1, 1, 0, 0, 1, 0],
+                        'add': [0, 0, 0, 0, 1, 0],
+                        'x_sub_y': [0, 1, 0, 0, 1, 1],
+                        'y_sub_x': [0, 0, 0, 1, 1, 1],
+                        'and': [0, 0, 0, 0, 0, 0],
+                        'or': [0, 1, 0, 1, 0, 1]}
+
+    test_x_bus = [random.choice([0, 1]) for ii in range(16)]
+    test_y_bus = [random.choice([0, 1]) for ii in range(16)]
+
+    for key in control_bit_test.keys():
+        func = key
+        control_bits = control_bit_test[key]
+
+        alu.x16 = test_x_bus
+        alu.y16 = test_y_bus
+        alu.zx = control_bits[0]
+        alu.nx = control_bits[1]
+        alu.zy = control_bits[2]
+        alu.ny = control_bits[3]
+        alu.f = control_bits[4]
+        alu.no = control_bits[5]
+
+        alu.update()
+
+        print("ALU FUNCTION: " + func)
+        print("x16 = " + str(alu.x16))
+        print("y16 = " + str(alu.y16))
+        print("out16 = " + str(alu.out16) + ", zr = " + str(alu.zr) + ", ng = " + str(alu.ng))
+
+
+

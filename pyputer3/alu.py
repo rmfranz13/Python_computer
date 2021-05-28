@@ -205,3 +205,156 @@ class Incr16:
         self.add16.update()
 
         self.pin_x_bus = self.add16.pin_sum_bus
+
+
+class ALU:
+    def __init__(self):
+        # Inputs:
+        self.x16 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.y16 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.zx = 0
+        self.nx = 0
+        self.zy = 0
+        self.ny = 0
+        self.f = 0
+        self.no = 0
+
+        # Outputs:
+        self.out16 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.zr = 0
+        self.ng = 0
+
+        # Constituent chips:
+        self.notZX = Not16()
+        self.andZX = And16()
+        self.notZY = Not16()
+        self.andZY = And16()
+        self.notNX = Not16()
+        self.muxNX = Mux16()
+        self.notNY = Not16()
+        self.muxNY = Mux16()
+        self.add16 = Add16()
+        self.and16 = And16()
+        self.muxF  = Mux16()
+        self.notNO = Not16()
+        self.muxNO = Mux16()
+        self.or0ZR = Or8Way()
+        self.or1ZR = Or8Way()
+        self.or2ZR = OrGate()
+        self.notZR = NotGate()
+
+    def update(self):
+        self.notZX.pin_a_bus[0] = self.zx
+        self.notZX.pin_a_bus[1] = self.zx
+        self.notZX.pin_a_bus[2] = self.zx
+        self.notZX.pin_a_bus[3] = self.zx
+        self.notZX.pin_a_bus[4] = self.zx
+        self.notZX.pin_a_bus[5] = self.zx
+        self.notZX.pin_a_bus[6] = self.zx
+        self.notZX.pin_a_bus[7] = self.zx
+        self.notZX.pin_a_bus[8] = self.zx
+        self.notZX.pin_a_bus[9] = self.zx
+        self.notZX.pin_a_bus[10] = self.zx
+        self.notZX.pin_a_bus[11] = self.zx
+        self.notZX.pin_a_bus[12] = self.zx
+        self.notZX.pin_a_bus[13] = self.zx
+        self.notZX.pin_a_bus[14] = self.zx
+        self.notZX.pin_a_bus[15] = self.zx
+        self.notZX.update()
+
+        self.andZX.pin_a_bus = self.notZX.pin_x_bus
+        self.andZX.pin_b_bus = self.x16
+        self.andZX.update()
+
+        self.notZY.pin_a_bus[0] = self.zy
+        self.notZY.pin_a_bus[1] = self.zy
+        self.notZY.pin_a_bus[2] = self.zy
+        self.notZY.pin_a_bus[3] = self.zy
+        self.notZY.pin_a_bus[4] = self.zy
+        self.notZY.pin_a_bus[5] = self.zy
+        self.notZY.pin_a_bus[6] = self.zy
+        self.notZY.pin_a_bus[7] = self.zy
+        self.notZY.pin_a_bus[8] = self.zy
+        self.notZY.pin_a_bus[9] = self.zy
+        self.notZY.pin_a_bus[10] = self.zy
+        self.notZY.pin_a_bus[11] = self.zy
+        self.notZY.pin_a_bus[12] = self.zy
+        self.notZY.pin_a_bus[13] = self.zy
+        self.notZY.pin_a_bus[14] = self.zy
+        self.notZY.pin_a_bus[15] = self.zy
+        self.notZY.update()
+
+        self.andZY.pin_a_bus = self.notZY.pin_x_bus
+        self.andZY.pin_b_bus = self.y16
+        self.andZY.update()
+
+        self.notNX.pin_a_bus = self.andZX.pin_x_bus
+        self.notNX.update()
+
+        self.muxNX.pin_a_bus = self.andZX.pin_x_bus
+        self.muxNX.pin_b_bus = self.notNX.pin_x_bus
+        self.muxNX.pin_sel = self.nx
+        self.muxNX.update()
+
+        self.notNY.pin_a_bus = self.andZY.pin_x_bus
+        self.notNY.update()
+
+        self.muxNY.pin_a_bus = self.andZY.pin_x_bus
+        self.muxNY.pin_b_bus = self.notNY.pin_x_bus
+        self.muxNY.pin_sel = self.ny
+        self.muxNY.update()
+
+        self.add16.pin_a_bus = self.muxNX.pin_x_bus
+        self.add16.pin_b_bus = self.muxNY.pin_x_bus
+        self.add16.update()
+
+        self.and16.pin_a_bus = self.muxNX.pin_x_bus
+        self.and16.pin_b_bus = self.muxNY.pin_x_bus
+        self.and16.update()
+
+        self.muxF.pin_a_bus = self.and16.pin_x_bus
+        self.muxF.pin_b_bus = self.add16.pin_sum_bus
+        self.muxF.pin_sel = self.f
+        self.muxF.update()
+
+        self.notNO.pin_a_bus = self.muxF.pin_x_bus
+        self.notNO.update()
+        
+        self.muxNO.pin_a_bus = self.muxF.pin_x_bus
+        self.muxNO.pin_b_bus = self.notNO.pin_x_bus
+        self.muxNO.pin_sel = self.no
+        self.muxNO.update()
+
+        self.out16 = self.muxNO.pin_x_bus
+
+        self.or0ZR.pin_a = self.out16[0]
+        self.or0ZR.pin_b = self.out16[1]
+        self.or0ZR.pin_c = self.out16[2]
+        self.or0ZR.pin_d = self.out16[3]
+        self.or0ZR.pin_e = self.out16[4]
+        self.or0ZR.pin_f = self.out16[5]
+        self.or0ZR.pin_g = self.out16[6]
+        self.or0ZR.pin_g = self.out16[7]
+        self.or0ZR.update()
+
+        self.or1ZR.pin_a = self.out16[8]
+        self.or1ZR.pin_b = self.out16[9]
+        self.or1ZR.pin_c = self.out16[10]
+        self.or1ZR.pin_d = self.out16[11]
+        self.or1ZR.pin_e = self.out16[12]
+        self.or1ZR.pin_f = self.out16[13]
+        self.or1ZR.pin_g = self.out16[14]
+        self.or1ZR.pin_h = self.out16[15]
+        self.or1ZR.update()
+
+        self.or2ZR.pin_a = self.or0ZR.pin_x
+        self.or2ZR.pin_b = self.or1ZR.pin_x
+        self.or2ZR.update()
+
+        self.notZR.pin_a = self.or2ZR.pin_x
+        self.notZR.update()
+        
+        self.zr = self.notZR.pin_x
+
+        self.ng = self.out16[15]
+
