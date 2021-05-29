@@ -1,4 +1,4 @@
-from nand import Nand
+from elements import Nand
 #import pdb; pdb.set_trace()
 
 class NotGate:
