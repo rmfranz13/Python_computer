@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 from elements import Nand
 #import pdb; pdb.set_trace()
 

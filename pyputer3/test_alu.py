@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 # Test classes leading up to and including ALU 
 
 from alu import *

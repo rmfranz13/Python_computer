@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 # Run as a test of the fundamental gates.
 
 from fundamentals import *
