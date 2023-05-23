@@ -136,7 +136,7 @@ if __name__ == '__main__':
 
     print("\n\n>>>> ALU TEST >>>>>")
     print("Press enter to run each ALU function on a random inputs (same x16 and y16 for each test).")
-    input("Judge correctness for yourself.")
+    input("Judge correctness for yourself.\n")
 
     # Test ALU "manually" (doesn't explicitly handle all inputs)
     alu = ALU()
@@ -162,6 +162,14 @@ if __name__ == '__main__':
     test_x_bus = [random.choice([0, 1]) for ii in range(16)]
     test_y_bus = [random.choice([0, 1]) for ii in range(16)]
 
+    # Print text_x_bus and test_y_bus
+    print("ALU inputs under test: ")
+    print("x16 = " + str(test_x_bus))
+    print("y16 = " + str(test_y_bus))
+    print("\n")
+    print("ALU  outputs for each ALU function:")
+    print("\n")
+
     for key in control_bit_test.keys():
         func = key
         control_bits = control_bit_test[key]
@@ -178,8 +186,6 @@ if __name__ == '__main__':
         alu.update()
 
         print("ALU FUNCTION: " + func)
-        print("x16 = " + str(alu.x16))
-        print("y16 = " + str(alu.y16))
         print("out16 = " + str(alu.out16) + ", zr = " + str(alu.zr) + ", ng = " + str(alu.ng))
 
 

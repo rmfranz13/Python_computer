@@ -84,7 +84,7 @@ if __name__ == '__main__':
         
 
         
-print("Clock line:   " + str(clk_line))
-print("Data inputs:  " + str(test_d))
-print("Q outputs:    " + str(test_q))
-print("Qbar outputs: " + str(test_qbar))
+    print("Clock line:   " + str(clk_line))
+    print("Data inputs:  " + str(test_d))
+    print("Q outputs:    " + str(test_q))
+    print("Qbar outputs: " + str(test_qbar))
