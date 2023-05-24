@@ -1,14 +1,24 @@
 #! /usr/bin/python3
 
-from elements import Nand
-#import pdb; pdb.set_trace()
+class NandGate:
+    def __init__(self):
+        self.pin_a = 0
+        self.pin_b = 0
+        self.pin_x = 0
+
+    def update(self):
+        if(self.pin_a and self.pin_b):
+            self.pin_x = 0
+        else:
+            self.pin_x = 1
+
 
 class NotGate:
     def __init__(self):
         self.pin_a = 0
         self.pin_x = 0
         
-        self.nand = Nand()
+        self.nand = NandGate()
 
     def update(self):
         self.nand.pin_a = self.pin_a
@@ -24,7 +34,7 @@ class AndGate:
         self.pin_x = 0
 
         self.notGate = NotGate()
-        self.nand = Nand()
+        self.nand = NandGate()
 
     def update(self):
         self.nand.pin_a = self.pin_a
@@ -44,7 +54,7 @@ class OrGate:
 
         self.not1 = NotGate()
         self.not2 = NotGate()
-        self.nand = Nand()
+        self.nand = NandGate()
     
     def update(self):
         self.not1.pin_a = self.pin_a
